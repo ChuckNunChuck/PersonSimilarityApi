@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6ED356A7-8B47-4613-AD01-C85CF28491BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{664D406C-2F83-48F0-BFC3-408D5CB53C65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FraudDetector.Infrastructure", "src\FraudDetector.Infrastructure\FraudDetector.Infrastructure.csproj", "{9B87955E-AE2C-4BD4-AAEA-218987B335E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FraudDetector.Application", "src\FraudDetector.Application\FraudDetector.Application.csproj", "{D9FFA524-FEBE-4707-891D-24865C1D723D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FraudDetector.Domain", "src\FraudDetector.Domain\FraudDetector.Domain.csproj", "{A2E05A7F-7948-4750-82C4-390802D92536}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FraudDetector", "src\FraudDetector\FraudDetector.csproj", "{52FC4074-5D4D-43BF-95DF-4C4836424BC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B87955E-AE2C-4BD4-AAEA-218987B335E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B87955E-AE2C-4BD4-AAEA-218987B335E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B87955E-AE2C-4BD4-AAEA-218987B335E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B87955E-AE2C-4BD4-AAEA-218987B335E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9FFA524-FEBE-4707-891D-24865C1D723D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9FFA524-FEBE-4707-891D-24865C1D723D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9FFA524-FEBE-4707-891D-24865C1D723D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9FFA524-FEBE-4707-891D-24865C1D723D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2E05A7F-7948-4750-82C4-390802D92536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2E05A7F-7948-4750-82C4-390802D92536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2E05A7F-7948-4750-82C4-390802D92536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E05A7F-7948-4750-82C4-390802D92536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52FC4074-5D4D-43BF-95DF-4C4836424BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52FC4074-5D4D-43BF-95DF-4C4836424BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52FC4074-5D4D-43BF-95DF-4C4836424BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52FC4074-5D4D-43BF-95DF-4C4836424BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B87955E-AE2C-4BD4-AAEA-218987B335E3} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
+		{D9FFA524-FEBE-4707-891D-24865C1D723D} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
+		{A2E05A7F-7948-4750-82C4-390802D92536} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
+		{52FC4074-5D4D-43BF-95DF-4C4836424BC0} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3CB609D9-5D54-4C11-A371-DAAC8B74E430}
+	EndGlobalSection
+EndGlobal
