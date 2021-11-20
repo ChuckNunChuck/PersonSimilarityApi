@@ -8,7 +8,7 @@ public abstract class AuditableEntity<T>
     }
 
 
-    public T Id { get; protected set; }
+    public T Id { get; }
     public DateTimeOffset Created { get; } = DateTimeOffset.UtcNow;
     public DateTimeOffset LastModified { get; protected set; } = DateTimeOffset.UtcNow;
 }

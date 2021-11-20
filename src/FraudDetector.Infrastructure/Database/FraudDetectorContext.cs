@@ -1,4 +1,5 @@
-﻿using FraudDetector.Domain.Model;
+﻿using FraudDetector.Domain.Common;
+using FraudDetector.Domain.Model;
 using FraudDetector.Infrastructure.Database.Configurations;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,7 @@ public class FraudDetectorContext : DbContext
     {
     }
 
-    public virtual DbSet<Person> SalesProcesses => Set<Person>();
+    public virtual DbSet<Person> Persons => Set<Person>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

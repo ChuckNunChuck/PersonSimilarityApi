@@ -4,15 +4,21 @@ namespace FraudDetector.Domain.Model;
 
 public class Person : AuditableEntity<Guid>
 {
-    public Person(string firstName, string lastName) 
+    public Person(
+        string firstName, 
+        string lastName, 
+        DateTime? dateOfBirth,
+        string? identificationNumber) 
         : base(Guid.Empty)
     {
         FirstName = firstName;
         LastName = lastName;
+        DateOfBirth = dateOfBirth;
+        IdentificationNumber = identificationNumber;
     }
 
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public DateTime? DateOfBirth { get; set; }
-    public string? IdentificationNumber { get; set; }
+    public string FirstName { get; }
+    public string LastName { get; }
+    public DateTime? DateOfBirth { get; }
+    public string? IdentificationNumber { get; }
 }

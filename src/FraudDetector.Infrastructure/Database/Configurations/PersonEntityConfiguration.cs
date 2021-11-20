@@ -8,15 +8,21 @@ public class PersonEntityConfiguration : IEntityTypeConfiguration<Person>
 {
     public void Configure(EntityTypeBuilder<Person> builder)
     {
-        builder.Property(t => t.FirstName)
+        builder.HasKey(person => person.Id);
+
+        builder.Property(person => person.FirstName)
             .HasMaxLength(50)
             .IsRequired();
 
-        builder.Property(t => t.LastName)
+        builder.Property(person => person.LastName)
             .HasMaxLength(50)
             .IsRequired();
 
-        builder.Property(t => t.IdentificationNumber)
+        builder.Property(person => person.IdentificationNumber)
             .HasMaxLength(255);
+
+        builder.Property(person => person.DateOfBirth);
+        builder.Property(person => person.Created);
+        builder.Property(person => person.LastModified);
     }
 }

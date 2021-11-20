@@ -1,4 +1,6 @@
 ﻿using FraudDetector.Application.Common.Models;
+using FraudDetector.Application.Persons.Commands;
+using FraudDetector.Application.Persons.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FraudDetector.Controllers;
@@ -13,8 +15,8 @@ public class PersonsController : ApiControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create(CreatePersonCommand command)
+    public async Task<IActionResult> Create(CreatePersonCommand command)
     {
-        return await Mediator.Send(command);
+        return CommandResultToActionResult(await Mediator.Send(command));
     }
 }

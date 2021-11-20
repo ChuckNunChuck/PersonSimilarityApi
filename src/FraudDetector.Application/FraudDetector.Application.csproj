@@ -28,6 +28,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FraudDetector.Domain\FraudDetector.Domain.csproj" />
+      <ProjectReference Include="..\FraudDetector.Infrastructure\FraudDetector.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

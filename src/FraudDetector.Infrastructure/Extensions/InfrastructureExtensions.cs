@@ -8,7 +8,10 @@ public static class InfrastructureExtensions
 {
 
     public static IServiceCollection AddInMemoryFraudDetectorStore(
-        this IServiceCollection services) =>
-        services.AddDbContext<FraudDetectorContext>(options => 
-            options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+        this IServiceCollection services)
+    {
+        var databaseName  = Guid.NewGuid().ToString();
+        return services.AddDbContext<FraudDetectorContext>(options =>
+            options.UseInMemoryDatabase(databaseName));
+    }
 }

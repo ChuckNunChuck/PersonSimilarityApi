@@ -1,7 +1,7 @@
+using FraudDetector.Application;
 using FraudDetector.Extensions;
 using FraudDetector.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
 
 namespace FraudDetector;
 
@@ -19,6 +19,7 @@ public class Startup
         services.AddControllers();
         services
             .AddInMemoryFraudDetectorStore()
+            .AddApplication()
             .AddSwagger()
             .AddHttpContextAccessor()
             .AddHealthChecks();
