@@ -1,5 +1,4 @@
-﻿using FraudDetector.Domain.Common;
-using FraudDetector.Domain.Model;
+﻿using FraudDetector.Domain.Model;
 using FraudDetector.Infrastructure.Database.Configurations;
 using Microsoft.EntityFrameworkCore;
 

@@ -17,5 +17,10 @@ public class CreatePersonCommandValidator : AbstractValidator<CreatePersonComman
         RuleFor(person => person.IdentificationNumber)
             .MaximumLength(255)
             .When(person => person.IdentificationNumber != null);
+
+        RuleFor(person => person.DateOfBirth)
+            .Must(date => date > new DateTime(1900, 1, 1))
+            .When(person => person.DateOfBirth != null)
+            .WithMessage("Date of birth year must be bigger than 1900");
     }
 }

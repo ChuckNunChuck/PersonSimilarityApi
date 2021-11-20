@@ -1,4 +1,5 @@
-﻿using FraudDetector.Application.Common.Enums;
+﻿using AutoMapper;
+using FraudDetector.Application.Common.Enums;
 using FraudDetector.Application.Common.Models.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,14 @@ namespace FraudDetector.Controllers;
 [Route("api/[controller]")]
 public abstract class ApiControllerBase : ControllerBase
 {
-    private ISender _mediator = null!;
+    public ISender Mediator { get; }
+    public IMapper Mapper { get; }
 
-    protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<ISender>();
+    protected ApiControllerBase(ISender mediator, IMapper mapper)
+    {
+        Mediator = mediator;
+        Mapper = mapper;
+    }
 
     protected IActionResult CommandResultToActionResult<T>(CommandResult<T> result)
         => result.Result switch

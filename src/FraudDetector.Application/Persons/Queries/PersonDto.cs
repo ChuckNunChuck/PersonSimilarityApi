@@ -1,6 +1,4 @@
-﻿using FraudDetector.Domain.Model;
-
-namespace FraudDetector.Application.Persons.Queries;
+﻿namespace FraudDetector.Application.Persons.Queries;
 
 public class PersonDto
 {

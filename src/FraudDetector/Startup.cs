@@ -1,6 +1,9 @@
+using FluentValidation.AspNetCore;
 using FraudDetector.Application;
+using FraudDetector.Application.Persons.Commands;
 using FraudDetector.Extensions;
 using FraudDetector.Infrastructure.Extensions;
+using FraudDetector.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FraudDetector;
@@ -16,16 +19,20 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers();
+        services
+            .AddControllers(options =>
+            {
+                options.ModelBinderProviders.InsertBodyAndRouteBinding();
+            })
+            .AddFluentValidation(fv
+                => fv.RegisterValidatorsFromAssemblyContaining<CreatePersonCommandValidator>());
+
         services
             .AddInMemoryFraudDetectorStore()
             .AddApplication()
             .AddSwagger()
             .AddHttpContextAccessor()
             .AddHealthChecks();
-
-        services.Configure<ApiBehaviorOptions>(options =>
-            options.SuppressModelStateInvalidFilter = true);
     }
 
     public void Configure(

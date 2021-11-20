@@ -5,8 +5,8 @@ namespace FraudDetector.Application.Persons.Commands;
 
 public class CreatePersonCommand : IRequest<CommandResult<Guid>>
 {
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public DateTime? DateOfBirth { get; set; }
-    public string? IdentificationNumber { get; set; }
+    public string FirstName { get; init; } = string.Empty;
+    public string LastName { get; init; } = string.Empty;
+    public DateTime? DateOfBirth { get; init; }
+    public string? IdentificationNumber { get; init; }
 }
