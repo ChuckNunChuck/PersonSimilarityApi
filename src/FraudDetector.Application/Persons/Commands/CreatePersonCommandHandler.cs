@@ -6,11 +6,11 @@ using MediatR;
 
 namespace FraudDetector.Application.Persons.Commands;
 
-public class CreateTodoItemCommandHandler : IRequestHandler<CreatePersonCommand, CommandResult<Guid>>
+public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand, CommandResult<Guid>>
 {
     private readonly FraudDetectorContext _context;
 
-    public CreateTodoItemCommandHandler(FraudDetectorContext context)
+    public CreatePersonCommandHandler(FraudDetectorContext context)
     {
         _context = context;
     }

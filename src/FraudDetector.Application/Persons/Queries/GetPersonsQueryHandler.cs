@@ -7,13 +7,13 @@ using MediatR;
 
 namespace FraudDetector.Application.Persons.Queries;
 
-public class GetTodoItemsWithPaginationQueryHandler 
+public class GetPersonsQueryHandler 
     : IRequestHandler<GetPersonsQuery, PaginatedList<PersonDto>>
 {
     private readonly FraudDetectorContext _context;
     private readonly IMapper _mapper;
 
-    public GetTodoItemsWithPaginationQueryHandler(FraudDetectorContext context, IMapper mapper)
+    public GetPersonsQueryHandler(FraudDetectorContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;

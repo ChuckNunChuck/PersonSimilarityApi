@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using FraudDetector.Application.Common.Models.Commands;
+using MediatR;
 
-namespace FraudDetector.Application.Persons.Queries;
+namespace FraudDetector.Application.Persons.Commands;
 
-public class GetSimilarityQuery : IRequest<decimal>
+public class CalculateSimilarityCommand : IRequest<CommandResult<decimal>>
 {
     public Guid Id { get; init; }
     public string? FirstName { get; init; }

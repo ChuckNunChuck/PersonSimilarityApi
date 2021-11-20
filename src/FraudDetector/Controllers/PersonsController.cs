@@ -21,11 +21,11 @@ public class PersonsController : ApiControllerBase
         CancellationToken cancellation) =>
         await Mediator.Send(query, cancellation);
 
-    [HttpGet("{id}/calculate-similarity")]
-    public async Task<ActionResult<decimal>> GetSimilarity(
-        [FromBodyAndRoute] GetSimilarityQuery query, 
+    [HttpPost("{id}/calculate-similarity")]
+    public async Task<IActionResult> CalculateSimilarity(
+        [FromBodyAndRoute] CalculateSimilarityCommand command, 
         CancellationToken cancellation) =>
-        await Mediator.Send(query, cancellation);
+        CommandResultToActionResult(await Mediator.Send(command, cancellation));
 
     [HttpPost]
     public async Task<IActionResult> Create(
