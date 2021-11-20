@@ -26,6 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FraudDetector.Application\FraudDetector.Application.csproj" />
       <ProjectReference Include="..\FraudDetector.Infrastructure\FraudDetector.Infrastructure.csproj" />
     </ItemGroup>
 
