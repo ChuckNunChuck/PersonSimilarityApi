@@ -14,6 +14,8 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Lindhart.Analyser.MissingAwaitWarning" Version="2.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
         <PackageReference Include="NullGuard.Fody" Version="3.0.0" />
         <PackageReference Include="SonarAnalyzer.CSharp" Version="8.32.0.39516">
             <PrivateAssets>all</PrivateAssets>
@@ -22,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Database\" />
+      <ProjectReference Include="..\FraudDetector.Domain\FraudDetector.Domain.csproj" />
     </ItemGroup>
 
 </Project>

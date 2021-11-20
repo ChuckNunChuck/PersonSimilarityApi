@@ -1,3 +1,5 @@
+using FraudDetector.Extensions;
+using FraudDetector.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
@@ -15,15 +17,9 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
-        services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Fraud Detection API", 
-                    Description = "Docs for Fraud Detection API", 
-                    Version = "v1"
-                });
-            })
+        services
+            .AddInMemoryFraudDetectorStore()
+            .AddSwagger()
             .AddHttpContextAccessor()
             .AddHealthChecks();
 
