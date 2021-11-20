@@ -1,12 +1,14 @@
 ﻿namespace FraudDetector.Domain.Common;
 
-public abstract class AuditableEntity
+public abstract class AuditableEntity<T>
 {
-    public DateTime Created { get; set; }
+    protected AuditableEntity(T id)
+    {
+        Id = id;
+    }
 
-    public string? CreatedBy { get; set; }
 
-    public DateTime? LastModified { get; set; }
-
-    public string? LastModifiedBy { get; set; }
+    public T Id { get; protected set; }
+    public DateTimeOffset Created { get; } = DateTimeOffset.UtcNow;
+    public DateTimeOffset LastModified { get; protected set; } = DateTimeOffset.UtcNow;
 }

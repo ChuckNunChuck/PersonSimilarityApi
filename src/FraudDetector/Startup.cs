@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
@@ -13,16 +12,18 @@ public class Startup
 
     public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
-        services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
-        {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Description = "Docs for my API", Version = "v1" });
-        });
-        services
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Fraud Detection API", 
+                    Description = "Docs for Fraud Detection API", 
+                    Version = "v1"
+                });
+            })
             .AddHttpContextAccessor()
             .AddHealthChecks();
 
@@ -30,7 +31,6 @@ public class Startup
             options.SuppressModelStateInvalidFilter = true);
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(
         IApplicationBuilder app,
         IWebHostEnvironment env,
