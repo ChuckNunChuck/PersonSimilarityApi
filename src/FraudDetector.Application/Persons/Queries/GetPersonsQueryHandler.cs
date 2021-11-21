@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using FraudDetector.Application.Common.Models;
 using FraudDetector.Application.Extensions;
+using FraudDetector.Application.Models;
 using FraudDetector.Infrastructure.Database;
 using MediatR;
 

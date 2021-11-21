@@ -1,4 +1,4 @@
-﻿using FraudDetector.Application.Common.Models;
+﻿using FraudDetector.Application.Models;
 using MediatR;
 
 namespace FraudDetector.Application.Persons.Queries;

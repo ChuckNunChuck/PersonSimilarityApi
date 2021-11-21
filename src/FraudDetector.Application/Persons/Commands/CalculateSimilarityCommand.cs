@@ -1,4 +1,4 @@
-﻿using FraudDetector.Application.Common.Models.Commands;
+﻿using FraudDetector.Application.Models.Commands;
 using MediatR;
 
 namespace FraudDetector.Application.Persons.Commands;

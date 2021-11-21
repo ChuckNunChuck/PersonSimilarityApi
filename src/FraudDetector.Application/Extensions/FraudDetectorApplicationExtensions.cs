@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using FluentValidation;
-using FraudDetector.Application.Common.Behaviours;
+using FraudDetector.Application.Behaviours;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 

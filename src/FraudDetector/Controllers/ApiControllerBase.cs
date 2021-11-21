@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using FraudDetector.Application.Common.Enums;
-using FraudDetector.Application.Common.Models.Commands;
+using FraudDetector.Application.Enums;
+using FraudDetector.Application.Models.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

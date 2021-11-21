@@ -1,4 +1,4 @@
-﻿using FraudDetector.Application.Common.Models;
+﻿using FraudDetector.Application.Models;
 
 namespace FraudDetector.Application.Extensions;
 

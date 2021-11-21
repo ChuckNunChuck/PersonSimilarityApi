@@ -1,7 +1,7 @@
-﻿using FraudDetector.Application.Common.Behaviours;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using FraudDetector.Application.Behaviours;
 
 namespace FraudDetector.Application;
 

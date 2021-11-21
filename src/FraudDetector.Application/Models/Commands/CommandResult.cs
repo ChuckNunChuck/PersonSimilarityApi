@@ -1,7 +1,7 @@
-﻿using FraudDetector.Application.Common.Enums;
-using FraudDetector.Application.Common.Interfaces;
+﻿using FraudDetector.Application.Enums;
+using FraudDetector.Application.Interfaces;
 
-namespace FraudDetector.Application.Common.Models.Commands;
+namespace FraudDetector.Application.Models.Commands;
 
 public class CommandResult<T> : ICommandResult
 {

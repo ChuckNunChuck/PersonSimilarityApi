@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FraudDetector.Application.Common.Models;
+using FraudDetector.Application.Models;
 using FraudDetector.Application.Persons.Commands;
 using FraudDetector.Application.Persons.Queries;
 using FraudDetector.ModelBinding.BodyAndRoute;

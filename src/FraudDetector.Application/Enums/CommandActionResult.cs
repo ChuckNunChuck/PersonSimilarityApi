@@ -1,4 +1,4 @@
-﻿namespace FraudDetector.Application.Common.Enums;
+﻿namespace FraudDetector.Application.Enums;
 
 public enum CommandActionResult
 {
