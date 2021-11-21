@@ -1,10 +1,9 @@
 using FluentValidation.AspNetCore;
 using FraudDetector.Application;
-using FraudDetector.Application.Persons.Commands;
+using FraudDetector.Application.Persons.Commands.CreatePersonCommand;
 using FraudDetector.Extensions;
 using FraudDetector.Infrastructure.Extensions;
 using FraudDetector.ModelBinding;
-using Microsoft.AspNetCore.Mvc;
 
 namespace FraudDetector;
 

@@ -1,7 +1,7 @@
 ﻿using FraudDetector.Application.Model;
 using MediatR;
 
-namespace FraudDetector.Application.Persons.Queries;
+namespace FraudDetector.Application.Persons.Queries.GetPersonsQuery;
 
 public class GetPersonsQuery : IRequest<PaginatedList<PersonDto>>
 {

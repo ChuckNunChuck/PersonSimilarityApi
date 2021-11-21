@@ -4,7 +4,7 @@ using FraudDetector.Domain.Model;
 using FraudDetector.Infrastructure.Database;
 using MediatR;
 
-namespace FraudDetector.Application.Persons.Commands;
+namespace FraudDetector.Application.Persons.Commands.CreatePersonCommand;
 
 public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand, CommandResult<Guid>>
 {

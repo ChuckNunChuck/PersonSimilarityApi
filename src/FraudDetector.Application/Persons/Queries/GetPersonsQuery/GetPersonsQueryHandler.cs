@@ -5,7 +5,7 @@ using FraudDetector.Application.Model;
 using FraudDetector.Infrastructure.Database;
 using MediatR;
 
-namespace FraudDetector.Application.Persons.Queries;
+namespace FraudDetector.Application.Persons.Queries.GetPersonsQuery;
 
 public class GetPersonsQueryHandler 
     : IRequestHandler<GetPersonsQuery, PaginatedList<PersonDto>>

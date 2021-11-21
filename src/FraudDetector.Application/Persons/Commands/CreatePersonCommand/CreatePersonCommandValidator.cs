@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace FraudDetector.Application.Persons.Commands;
+namespace FraudDetector.Application.Persons.Commands.CreatePersonCommand;
 
 public class CreatePersonCommandValidator : AbstractValidator<CreatePersonCommand>
 {
