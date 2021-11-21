@@ -12,7 +12,7 @@ public class SimilarityCalculator : ISimilarityCalculator
     private const decimal OneProbability = 1m;
     private const decimal ZeroProbability = 0m;
     private const decimal SameLastNameProbability =0.4m;
-    private const decimal SameFirstNameProbability = 0.3m;
+    private const decimal SameFirstNameProbability = 0.2m;
     private const decimal SimilarFirstNameProbability = 0.15m;
     private const double SimilarFirstNameDistance = 2;
     private const decimal SameDateOfBirthProbability = 0.4m;
@@ -27,7 +27,9 @@ public class SimilarityCalculator : ISimilarityCalculator
 
     private decimal CalculateBasedOnNameAndBirthDate(Person person, SimilarPerson similarPerson)
     {
-        if (!HasSameDateOfBirth(person, similarPerson))
+        if (person.DateOfBirth != null 
+            && similarPerson.DateOfBirth != null
+            && !HasSameDateOfBirth(person, similarPerson))
             return ZeroProbability;
 
         var notOccurProbability = OneProbability;

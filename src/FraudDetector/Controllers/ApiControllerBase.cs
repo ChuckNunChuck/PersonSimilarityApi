@@ -16,9 +16,9 @@ public abstract class ApiControllerBase : ControllerBase
     protected IActionResult CommandResultToActionResult<T>(CommandResult<T> result)
         => result.Result switch
         {
-            CommandActionResult.Success => NoContent(),
-            CommandActionResult.Created => Ok(result.Value),
-            CommandActionResult.Updated => Ok(result.Value),
+            CommandActionResult.Success => Ok(result.Value),
+            CommandActionResult.Created => Created("TODO", result.Value),
+            CommandActionResult.Updated => NoContent(),
             CommandActionResult.Deleted => NoContent(),
             CommandActionResult.NotFound => NotFound(),
             _ => BadRequest(
