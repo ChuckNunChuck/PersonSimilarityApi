@@ -2,30 +2,35 @@
 using FraudDetector.Application.Interfaces;
 using FraudDetector.Application.Persons.Model;
 using FraudDetector.Domain.Model;
+using FraudDetector.Infrastructure.Interfaces;
 
 namespace FraudDetector.Application.Services;
 
 public class SimilarityCalculator : ISimilarityCalculator
 {
-    private const decimal PositiveResult = 1m;
-    private const decimal NegativeResult = 0m;
+    private readonly IDiminutiveNameService _diminutiveNameService;
+    private const decimal OneProbability = 1m;
+    private const decimal ZeroProbability = 0m;
     private const decimal SameLastNameProbability =0.4m;
     private const decimal SameFirstNameProbability = 0.3m;
     private const decimal SimilarFirstNameProbability = 0.15m;
     private const double SimilarFirstNameDistance = 2;
     private const decimal SameDateOfBirthProbability = 0.4m;
 
+    public SimilarityCalculator(IDiminutiveNameService diminutiveNameService) => 
+        _diminutiveNameService = diminutiveNameService;
+
     public decimal Calculate(Person person, SimilarPerson similarPerson) => 
         HasSameIdentification(person, similarPerson) 
-            ? PositiveResult
+            ? OneProbability
             : CalculateBasedOnNameAndBirthDate(person, similarPerson);
 
-    private static decimal CalculateBasedOnNameAndBirthDate(Person person, SimilarPerson similarPerson)
+    private decimal CalculateBasedOnNameAndBirthDate(Person person, SimilarPerson similarPerson)
     {
         if (!HasSameDateOfBirth(person, similarPerson))
-            return NegativeResult;
+            return ZeroProbability;
 
-        var notOccurProbability = PositiveResult;
+        var notOccurProbability = OneProbability;
 
         notOccurProbability *= FirstNameNotOccurProbability(person, similarPerson);
         notOccurProbability *= LastNameNotOccurProbability(person, similarPerson);
@@ -33,38 +38,39 @@ public class SimilarityCalculator : ISimilarityCalculator
 
         return notOccurProbability.InvertProbability();
     }
-    private static decimal FirstNameNotOccurProbability(Person person, SimilarPerson similarPerson)
+    private decimal FirstNameNotOccurProbability(Person person, SimilarPerson similarPerson)
     {
-        if (person.FirstName.Equals(similarPerson.FirstName, StringComparison.InvariantCulture))
+        if (person.FirstName.Equals(similarPerson.FirstName, StringComparison.InvariantCultureIgnoreCase))
         {
             return SameFirstNameProbability.InvertProbability();
         }
 
         return HasSimilarFirstName(person.FirstName, similarPerson.FirstName)
             ? SimilarFirstNameProbability.InvertProbability()
-            : PositiveResult;
+            : OneProbability;
     }
 
-    private static bool HasSimilarFirstName(string personFirstName, string similarPersonFirstName) => 
+    private bool HasSimilarFirstName(string personFirstName, string similarPersonFirstName) => 
         new Damerau().Distance(personFirstName, similarPersonFirstName) <= SimilarFirstNameDistance 
-        || ContainsInitial(personFirstName, similarPersonFirstName);
+        || ContainsInitials(personFirstName, similarPersonFirstName)
+        || _diminutiveNameService.IsDiminutiveName(personFirstName, similarPersonFirstName);
 
-    private static bool ContainsInitial(string personFirstName, string similarPersonFirstName) =>
+    private static bool ContainsInitials(string personFirstName, string similarPersonFirstName) =>
         IsInitial(personFirstName) || IsInitial(similarPersonFirstName)
-        && personFirstName[0] == similarPersonFirstName[0];
+        && char.ToUpperInvariant(personFirstName[0]) == char.ToUpperInvariant(similarPersonFirstName[0]);
 
     private static bool IsInitial(string str) => 
         str.Length == 1 || (str.Length == 2 && str[1] == '.');
 
     private static decimal LastNameNotOccurProbability(Person person, SimilarPerson similarPerson) =>
-        person.LastName.Equals(similarPerson.LastName, StringComparison.InvariantCulture)
+        person.LastName.Equals(similarPerson.LastName, StringComparison.InvariantCultureIgnoreCase)
             ? SameLastNameProbability.InvertProbability()
-            : PositiveResult;
+            : OneProbability;
 
     private static decimal DateOfBirthNotOccurProbability(Person person, SimilarPerson similarPerson) =>
         HasSameDateOfBirth(person, similarPerson) 
             ? SameDateOfBirthProbability.InvertProbability() 
-            : PositiveResult;
+            : OneProbability;
 
     private static bool HasSameDateOfBirth(Person person, SimilarPerson similarPerson) =>
         person.DateOfBirth != null

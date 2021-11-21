@@ -9,6 +9,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Resources\names.csv" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="IDisposableAnalyzers" Version="3.4.15">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

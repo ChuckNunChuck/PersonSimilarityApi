@@ -1,4 +1,6 @@
 ﻿using FraudDetector.Infrastructure.Database;
+using FraudDetector.Infrastructure.Interfaces;
+using FraudDetector.Infrastructure.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,4 +16,10 @@ public static class InfrastructureExtensions
         return services.AddDbContext<FraudDetectorContext>(options =>
             options.UseInMemoryDatabase(databaseName));
     }
+
+    public static IServiceCollection AddResources(
+        this IServiceCollection services) =>
+        services
+            .AddScoped<IResourceReader, ResourceReader>()
+            .AddSingleton<IDiminutiveNameService, DiminutiveNameService>();
 }
