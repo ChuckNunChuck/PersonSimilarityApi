@@ -1,4 +1,4 @@
-﻿using System.Net.NetworkInformation;
+﻿using F23.StringSimilarity;
 using FraudDetector.Application.Interfaces;
 using FraudDetector.Application.Persons.Model;
 using FraudDetector.Domain.Model;
@@ -12,6 +12,7 @@ public class SimilarityCalculator : ISimilarityCalculator
     private const decimal SameLastNameProbability =0.4m;
     private const decimal SameFirstNameProbability = 0.3m;
     private const decimal SimilarFirstNameProbability = 0.15m;
+    private const double SimilarFirstNameDistance = 2;
     private const decimal SameDateOfBirthProbability = 0.4m;
 
     public decimal Calculate(Person person, SimilarPerson similarPerson) => 
@@ -44,6 +45,17 @@ public class SimilarityCalculator : ISimilarityCalculator
             : PositiveResult;
     }
 
+    private static bool HasSimilarFirstName(string personFirstName, string similarPersonFirstName) => 
+        new Damerau().Distance(personFirstName, similarPersonFirstName) <= SimilarFirstNameDistance 
+        || ContainsInitial(personFirstName, similarPersonFirstName);
+
+    private static bool ContainsInitial(string personFirstName, string similarPersonFirstName) =>
+        IsInitial(personFirstName) || IsInitial(similarPersonFirstName)
+        && personFirstName[0] == similarPersonFirstName[0];
+
+    private static bool IsInitial(string str) => 
+        str.Length == 1 || (str.Length == 2 && str[1] == '.');
+
     private static decimal LastNameNotOccurProbability(Person person, SimilarPerson similarPerson) =>
         person.LastName.Equals(similarPerson.LastName, StringComparison.InvariantCulture)
             ? SameLastNameProbability.InvertProbability()
@@ -53,11 +65,6 @@ public class SimilarityCalculator : ISimilarityCalculator
         HasSameDateOfBirth(person, similarPerson) 
             ? SameDateOfBirthProbability.InvertProbability() 
             : PositiveResult;
-
-    private static bool HasSimilarFirstName(string personFirstName, string similarPersonFirstName)
-    {
-        throw new NotImplementedException();
-    }
 
     private static bool HasSameDateOfBirth(Person person, SimilarPerson similarPerson) =>
         person.DateOfBirth != null
