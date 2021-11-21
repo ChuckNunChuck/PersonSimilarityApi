@@ -19,8 +19,8 @@ public class SimilarityCalculatorTests
     [Fact]
     public void CalculatesSimilarity()
     {
-        var similarityCalculator = _fixture.Create<SimilarityCalculator>();
         var person = _fixture.Create<Person>();
+        var similarityCalculator = _fixture.Create<SimilarityCalculator>();
 
         var result = similarityCalculator.Calculate(
             person, 

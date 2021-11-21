@@ -8,6 +8,15 @@ public class SimilarityCalculator : ISimilarityCalculator
 {
     public decimal Calculate(Person person, SimilarPerson similarPerson)
     {
-        throw new NotImplementedException();
+        if (HasSameIdentification(person, similarPerson))
+            return 1m;
+
+        return 0;
     }
+
+    private static bool HasSameIdentification(Person person, SimilarPerson similarPerson) =>
+        !string.IsNullOrEmpty(person.IdentificationNumber) 
+        && !string.IsNullOrEmpty(similarPerson.IdentificationNumber) 
+        && person.IdentificationNumber.Equals(similarPerson.IdentificationNumber,
+            StringComparison.InvariantCulture);
 }
