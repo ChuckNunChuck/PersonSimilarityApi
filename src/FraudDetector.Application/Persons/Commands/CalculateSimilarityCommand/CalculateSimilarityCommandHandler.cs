@@ -1,5 +1,5 @@
 ﻿using FraudDetector.Application.Enums;
-using FraudDetector.Application.Models.Commands;
+using FraudDetector.Application.Model.Commands;
 using FraudDetector.Infrastructure.Database;
 using MediatR;
 

@@ -1,4 +1,4 @@
-﻿namespace FraudDetector.Application.Models;
+﻿namespace FraudDetector.Application.Model;
 
 public class Result
 {

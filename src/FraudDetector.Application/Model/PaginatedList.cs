@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace FraudDetector.Application.Models;
+namespace FraudDetector.Application.Model;
 
 public class PaginatedList<T>
 {
