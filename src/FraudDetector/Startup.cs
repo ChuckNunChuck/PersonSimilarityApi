@@ -1,6 +1,10 @@
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using FraudDetector.Application;
 using FraudDetector.Application.Persons.Commands.CreatePersonCommand;
+using FraudDetector.Application.Settings;
+using FraudDetector.ConfigurationValidation;
+using FraudDetector.ConfigurationValidation.Validators;
 using FraudDetector.Extensions;
 using FraudDetector.Infrastructure.Extensions;
 using FraudDetector.ModelBinding;
@@ -9,15 +13,21 @@ namespace FraudDetector;
 
 public class Startup
 {
+    private readonly IConfiguration _configuration;
+
     public Startup(IConfiguration configuration)
     {
-        Configuration = configuration;
+        _configuration = configuration;
     }
-
-    public IConfiguration Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
+        _configuration.ThrowOnInvalidConfiguration(
+            new List<AbstractValidator<IConfiguration>>
+            {
+                new PersonSimilarityWeightsValidator()
+            });
+
         services
             .AddControllers(options =>
             {
@@ -27,11 +37,11 @@ public class Startup
                 => fv.RegisterValidatorsFromAssemblyContaining<CreatePersonCommandValidator>());
 
         services
+            .AddSettings<PersonSimilarityWeights>(_configuration)
             .AddInMemoryFraudDetectorStore()
             .AddResources()
             .AddApplication()
             .AddSwagger()
-            .AddHttpContextAccessor()
             .AddHealthChecks();
     }
 
@@ -40,13 +50,6 @@ public class Startup
         IWebHostEnvironment env,
         ILogger<Startup> logger)
     {
-        var pathBase = Configuration["PATH_BASE"];
-        if (!string.IsNullOrEmpty(pathBase))
-        {
-            logger.LogInformation("Using PATH BASE '{pathBase}'", pathBase);
-            app.UsePathBase(pathBase);
-        }
-
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();

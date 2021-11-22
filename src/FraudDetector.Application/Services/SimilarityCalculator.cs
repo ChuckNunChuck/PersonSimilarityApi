@@ -1,6 +1,7 @@
 ﻿using F23.StringSimilarity;
 using FraudDetector.Application.Interfaces;
 using FraudDetector.Application.Persons.Model;
+using FraudDetector.Application.Settings;
 using FraudDetector.Domain.Model;
 using FraudDetector.Infrastructure.Interfaces;
 
@@ -9,16 +10,17 @@ namespace FraudDetector.Application.Services;
 public class SimilarityCalculator : ISimilarityCalculator
 {
     private readonly IDiminutiveNameService _diminutiveNameService;
+    private readonly PersonSimilarityWeights _personSimilarityWeights;
     private const decimal OneProbability = 1m;
     private const decimal ZeroProbability = 0m;
-    private const decimal SameLastNameProbability =0.4m;
-    private const decimal SameFirstNameProbability = 0.2m;
-    private const decimal SimilarFirstNameProbability = 0.15m;
-    private const double SimilarFirstNameDistance = 2;
-    private const decimal SameDateOfBirthProbability = 0.4m;
 
-    public SimilarityCalculator(IDiminutiveNameService diminutiveNameService) => 
+    public SimilarityCalculator(
+        IDiminutiveNameService diminutiveNameService, 
+        PersonSimilarityWeights personSimilarityWeights)
+    {
         _diminutiveNameService = diminutiveNameService;
+        _personSimilarityWeights = personSimilarityWeights;
+    }
 
     public decimal Calculate(Person person, SimilarPerson similarPerson) => 
         HasSameIdentification(person, similarPerson) 
@@ -44,16 +46,17 @@ public class SimilarityCalculator : ISimilarityCalculator
     {
         if (person.FirstName.Equals(similarPerson.FirstName, StringComparison.InvariantCultureIgnoreCase))
         {
-            return SameFirstNameProbability.InvertProbability();
+            return _personSimilarityWeights.SameFirstNameProbability.InvertProbability();
         }
 
         return HasSimilarFirstName(person.FirstName, similarPerson.FirstName)
-            ? SimilarFirstNameProbability.InvertProbability()
+            ? _personSimilarityWeights.SimilarFirstNameProbability.InvertProbability()
             : OneProbability;
     }
 
     private bool HasSimilarFirstName(string personFirstName, string similarPersonFirstName) => 
-        new Damerau().Distance(personFirstName, similarPersonFirstName) <= SimilarFirstNameDistance 
+        new Damerau().Distance(personFirstName, similarPersonFirstName) 
+        <= _personSimilarityWeights.SimilarFirstNameDistance
         || ContainsInitials(personFirstName, similarPersonFirstName)
         || _diminutiveNameService.IsDiminutiveName(personFirstName, similarPersonFirstName);
 
@@ -64,14 +67,14 @@ public class SimilarityCalculator : ISimilarityCalculator
     private static bool IsInitial(string str) => 
         str.Length == 1 || (str.Length == 2 && str[1] == '.');
 
-    private static decimal LastNameNotOccurProbability(Person person, SimilarPerson similarPerson) =>
+    private decimal LastNameNotOccurProbability(Person person, SimilarPerson similarPerson) =>
         person.LastName.Equals(similarPerson.LastName, StringComparison.InvariantCultureIgnoreCase)
-            ? SameLastNameProbability.InvertProbability()
+            ? _personSimilarityWeights.SameLastNameProbability.InvertProbability()
             : OneProbability;
 
-    private static decimal DateOfBirthNotOccurProbability(Person person, SimilarPerson similarPerson) =>
+    private decimal DateOfBirthNotOccurProbability(Person person, SimilarPerson similarPerson) =>
         HasSameDateOfBirth(person, similarPerson) 
-            ? SameDateOfBirthProbability.InvertProbability() 
+            ? _personSimilarityWeights.SameDateOfBirthProbability.InvertProbability() 
             : OneProbability;
 
     private static bool HasSameDateOfBirth(Person person, SimilarPerson similarPerson) =>

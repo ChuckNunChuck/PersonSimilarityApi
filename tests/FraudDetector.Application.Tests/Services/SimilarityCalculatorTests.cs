@@ -3,6 +3,7 @@ using AutoFixture.AutoMoq;
 using FluentAssertions;
 using FraudDetector.Application.Persons.Model;
 using FraudDetector.Application.Services;
+using FraudDetector.Application.Tests.SpecimenBuilders;
 using FraudDetector.Domain.Model;
 using Xunit;
 
@@ -16,6 +17,7 @@ public class SimilarityCalculatorTests
     {
         _fixture = new Fixture();
         _fixture.Customize(new AutoMoqCustomization());
+        _fixture.AddSimilarityCalculationSpecimenBuilders();
     }
 
     [Theory]
