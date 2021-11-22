@@ -1,5 +1,8 @@
-﻿using FraudDetector.Filters;
+﻿using System.Security.Claims;
+using FraudDetector.Authorization;
+using FraudDetector.Filters;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace FraudDetector.Extensions;
 
@@ -16,6 +19,41 @@ public static class SwaggerExtensions
             Version = "v1"
         });
 
+        options.UseLocalTokenProviderOptions(new[]
+        {
+            new Claim(Scopes.ClaimType, Scopes.Read),
+            new Claim(Scopes.ClaimType, Scopes.Write)
+        });
         options.OperationFilter<FromBodyAndRouteModelOperationFilter>();
     });
+
+    public static SwaggerGenOptions UseLocalTokenProviderOptions(
+        this SwaggerGenOptions options, 
+        IEnumerable<Claim> claims)
+    {
+        options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            Description = LocalJwtToken.GenerateJwtToken(claims)
+        });
+
+        options.AddSecurityRequirement(new()
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "bearer"
+                    }
+                },
+                new string[] {}
+            }
+        });
+
+        return options;
+    }
 }

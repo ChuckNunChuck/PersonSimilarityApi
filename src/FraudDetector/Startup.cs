@@ -41,6 +41,7 @@ public class Startup
             .AddInMemoryFraudDetectorStore()
             .AddResources()
             .AddApplication()
+            .AddLocalAuthorization()
             .AddSwagger()
             .AddHealthChecks();
     }
@@ -55,14 +56,15 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
 
-        app.UseHealthChecks("/health");
-        app.UseSwagger();
-        app.UseSwaggerUI(c =>
-        {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-        });
-
-        app.UseRouting();
-        app.UseEndpoints(endpoints => endpoints.MapControllers());
+        app.UseHealthChecks("/healthz")
+            .UseSwagger()
+            .UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            })
+            .UseRouting()
+            .UseAuthentication()
+            .UseAuthorization()
+            .UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }
