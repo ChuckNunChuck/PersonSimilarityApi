@@ -65,6 +65,12 @@ public class SimilarityCalculatorTests
             new object[]
             {
                 new Person("Andrew", "Craw", new DateTime(1985, 2, 20), "931212312"),
+                new SimilarPerson("Andew", "Snow", null, null),
+                0.15
+            },
+            new object[]
+            {
+                new Person("Andrew", "Craw", new DateTime(1985, 2, 20), "931212312"),
                 new SimilarPerson("Andrev", "Snow", null, null),
                 0.15
             },
