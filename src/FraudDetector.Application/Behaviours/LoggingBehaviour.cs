@@ -1,24 +1,36 @@
-﻿using MediatR.Pipeline;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace FraudDetector.Application.Behaviours;
 
-public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
+public class LoggingBehaviour<TRequest, TResponse> 
+    : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<TRequest> _logger;
 
     public LoggingBehaviour(ILogger<TRequest> logger)
     {
         _logger = logger;
     }
 
-    public Task Process(TRequest request, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(
+        TRequest request, 
+        CancellationToken cancellationToken, 
+        RequestHandlerDelegate<TResponse> next)
     {
-        var requestName = typeof(TRequest).Name;
+        try
+        {
+            return await next();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex, 
+                "FraudDetector Request: Unhandled Exception for Request {Name} {@Request}",
+                typeof(TRequest).Name, 
+                request);
 
-        _logger.LogInformation("FraudDetector Request: {Name}  {@Request}",
-            requestName, request);
-
-        return  Task.CompletedTask;
+            throw;
+        }
     }
 }

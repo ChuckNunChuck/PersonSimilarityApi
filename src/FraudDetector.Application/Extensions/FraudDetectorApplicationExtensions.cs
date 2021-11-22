@@ -16,7 +16,7 @@ public static class FraudDetectorApplicationExtensions
             .AddAutoMapper(Assembly.GetExecutingAssembly())
             .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
             .AddMediatR(Assembly.GetExecutingAssembly())
-            .AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
         services.AddScoped<ISimilarityCalculator, SimilarityCalculator>();

@@ -48,8 +48,7 @@ public class Startup
 
     public void Configure(
         IApplicationBuilder app,
-        IWebHostEnvironment env,
-        ILogger<Startup> logger)
+        IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {

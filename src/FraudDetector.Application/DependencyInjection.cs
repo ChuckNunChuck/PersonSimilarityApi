@@ -13,7 +13,7 @@ public static class DependencyInjection
         services.AddAutoMapper(Assembly.GetExecutingAssembly())
             .AddMediatR(Assembly.GetExecutingAssembly())
             .AddTransient(typeof(IPipelineBehavior<,>), 
-                typeof(UnhandledExceptionBehaviour<,>))
+                typeof(LoggingBehaviour<,>))
             .AddApplicationServices();
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
