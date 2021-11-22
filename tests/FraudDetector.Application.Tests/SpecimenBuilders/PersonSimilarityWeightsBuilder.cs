@@ -21,6 +21,6 @@ internal sealed class PersonSimilarityWeightsBuilder : ISpecimenBuilder
             SameFirstNameProbability = 0.2m,
             SimilarFirstNameProbability = 0.15m,
             SameDateOfBirthProbability = 0.4m,
-            SimilarFirstNameDistance = 2
+            SimilarFirstNameDistance = 1
         };
 }
