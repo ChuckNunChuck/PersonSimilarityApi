@@ -31,7 +31,9 @@ public class SimilarityCalculator : ISimilarityCalculator
     {
         if (person.DateOfBirth != null 
             && similarPerson.DateOfBirth != null
-            && !HasSameDateOfBirth(person, similarPerson))
+            && !HasSameDateOfBirth(
+                person.DateOfBirth.Value, 
+                similarPerson.DateOfBirth.Value))
             return ZeroProbability;
 
         var notOccurProbability = OneProbability;
@@ -73,14 +75,14 @@ public class SimilarityCalculator : ISimilarityCalculator
             : OneProbability;
 
     private decimal DateOfBirthNotOccurProbability(Person person, SimilarPerson similarPerson) =>
-        HasSameDateOfBirth(person, similarPerson) 
+        person.DateOfBirth != null
+        && similarPerson.DateOfBirth != null 
+        && HasSameDateOfBirth(person.DateOfBirth.Value, similarPerson.DateOfBirth.Value) 
             ? _personSimilarityWeights.SameDateOfBirthProbability.InvertProbability() 
             : OneProbability;
 
-    private static bool HasSameDateOfBirth(Person person, SimilarPerson similarPerson) =>
-        person.DateOfBirth != null
-        && similarPerson.DateOfBirth != null
-        && person.DateOfBirth == similarPerson.DateOfBirth;
+    private static bool HasSameDateOfBirth(DateTime dateOfBirth, DateTime otherDateOfBirth) =>
+        dateOfBirth.Date == otherDateOfBirth.Date;
 
     private static bool HasSameIdentification(Person person, SimilarPerson similarPerson) =>
         !string.IsNullOrEmpty(person.IdentificationNumber) 

@@ -13,7 +13,7 @@ public class Person : AuditableEntity<Guid>
     {
         FirstName = firstName;
         LastName = lastName;
-        DateOfBirth = dateOfBirth;
+        DateOfBirth = dateOfBirth?.Date;
         IdentificationNumber = identificationNumber;
     }
 
