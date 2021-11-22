@@ -4,7 +4,6 @@ using FluentAssertions;
 using FraudDetector.Application.Enums;
 using FraudDetector.Application.Interfaces;
 using FraudDetector.Application.Persons.Commands.CalculateSimilarityCommand;
-using FraudDetector.Application.Persons.Commands.CreatePersonCommand;
 using FraudDetector.Application.Persons.Model;
 using FraudDetector.Application.Tests.Database;
 using FraudDetector.Domain.Model;
@@ -26,6 +25,7 @@ public sealed class CalculateSimilarityCommandHandlerTests : IDisposable
         _fixture = new Fixture();
         _fixture.Customize(new AutoMoqCustomization());
         _fixture.Inject(_context);
+
         var similarityCalculatorMock = _fixture.Freeze<Mock<ISimilarityCalculator>>();
         similarityCalculatorMock.Setup(m =>
                 m.Calculate(It.IsAny<Person>(), It.IsAny<SimilarPerson>()))
@@ -59,16 +59,6 @@ public sealed class CalculateSimilarityCommandHandlerTests : IDisposable
             CancellationToken.None);
 
         result.Result.Should().Be(CommandActionResult.NotFound);
-    }
-
-    private static void EntityShouldBeEqualToCommand(
-        Person person, 
-        CreatePersonCommand command)
-    {
-        person.FirstName.Should().Be(command.FirstName);
-        person.LastName.Should().Be(command.LastName);
-        person.DateOfBirth.Should().Be(command.DateOfBirth!.Value.Date);
-        person.IdentificationNumber.Should().Be(command.IdentificationNumber);
     }
 
     public void Dispose()
