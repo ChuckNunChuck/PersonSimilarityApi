@@ -20,6 +20,7 @@ public class PersonsController : ApiControllerBase
 
     [HttpGet]
     [Authorize(Policy = AuthorizationPolicyKeys.CanRead)]
+    [ProducesResponseType(typeof(PaginatedList<PersonDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<PaginatedList<PersonDto>>> GetPersons(
         [FromQuery] GetPersonsQuery query, 
         CancellationToken cancellation) =>
@@ -27,6 +28,8 @@ public class PersonsController : ApiControllerBase
 
     [HttpPost("{id}/calculate-similarity")]
     [Authorize(Policy = AuthorizationPolicyKeys.CanWrite)]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CalculateSimilarity(
         [FromBodyAndRoute] CalculateSimilarityCommand command, 
         CancellationToken cancellation) =>
@@ -34,6 +37,8 @@ public class PersonsController : ApiControllerBase
 
     [HttpPost]
     [Authorize(Policy = AuthorizationPolicyKeys.CanWrite)]
+    [ProducesResponseType(typeof(decimal), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(
         CreatePersonCommand command, 
         CancellationToken cancellation) => 
