@@ -18,6 +18,6 @@ public static class FraudDetectorApplicationExtensions
             .AddMediatR(Assembly.GetExecutingAssembly())
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
 
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
+    private static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
         services.AddScoped<ISimilarityCalculator, SimilarityCalculator>();
 }

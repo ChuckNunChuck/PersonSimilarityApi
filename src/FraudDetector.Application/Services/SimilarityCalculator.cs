@@ -31,9 +31,7 @@ public class SimilarityCalculator : ISimilarityCalculator
     {
         if (person.DateOfBirth != null 
             && similarPerson.DateOfBirth != null
-            && !HasSameDateOfBirth(
-                person.DateOfBirth.Value, 
-                similarPerson.DateOfBirth.Value))
+            && !HasSameDateOfBirth(person.DateOfBirth.Value, similarPerson.DateOfBirth.Value))
             return ZeroProbability;
 
         var notOccurProbability = OneProbability;

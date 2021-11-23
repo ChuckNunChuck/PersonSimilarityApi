@@ -22,10 +22,10 @@ public class DiminutiveNameService : IDiminutiveNameService
     }
 
     public bool IsDiminutiveName(string name, string otherName) => 
-        IsKnownIsDiminutiveName(name, otherName) 
-        || IsKnownIsDiminutiveName(otherName, name);
+        IsKnownDiminutiveName(name, otherName) 
+        || IsKnownDiminutiveName(otherName, name);
 
-    private bool IsKnownIsDiminutiveName(string name, string diminutiveName) => 
+    private bool IsKnownDiminutiveName(string name, string diminutiveName) => 
         DiminutiveNamesLookup.TryGetValue(name.ToUpperInvariant(), out var result) 
         && result.Any(n => 
             n.Equals(diminutiveName, StringComparison.InvariantCultureIgnoreCase));

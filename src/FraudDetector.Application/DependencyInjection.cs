@@ -16,6 +16,6 @@ public static class DependencyInjection
                 typeof(LoggingBehaviour<,>))
             .AddApplicationServices();
 
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
+    private static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
         services.AddScoped<ISimilarityCalculator, SimilarityCalculator>();
 }
