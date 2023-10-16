@@ -29,7 +29,7 @@ public sealed class CreatePersonCommandHandlerTests : IDisposable
 
         var result = await handler.Handle(command, CancellationToken.None);
 
-        result.Result.Should().Be(CommandActionResult.Success);
+        result.Result.Should().Be(CommandActionResult.Created);
         _context.Persons.Should().HaveCount(1);
         
         var person = _context.Persons.Single();
