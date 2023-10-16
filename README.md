@@ -18,5 +18,6 @@
 2. Navigate to `src/FraudDetector` and run `dotnet run` to launch the API
 3. Check `https://localhost:5001/swagger/index.html` for API documentation
 4. For authorization use locally generated JWT token from the Swagger authorization dialog
+5. Git Demo
 
 ![FraudDetectionApi](https://user-images.githubusercontent.com/9357531/143013332-12559473-1af7-4227-8050-5818c862cc4e.png)
